@@ -1,0 +1,7 @@
+发送<input type="text" name="sender" ng-model="sender"/>
+接受<input type="text" name="acceptor" ng-model="acceptor"/>
+<p>消息</p>
+<ul>
+    <li ng-repeat="msg in msgList">{{msg}}</li>
+</ul>
+<input type="button" ng-click="submit()" value="提交"/>

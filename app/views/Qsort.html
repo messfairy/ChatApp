@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<p id="src"></p>
+<p id="target"></p>
+<script>
+    function qsort(v, left, right){
+        var last, i;
+        if(left>=right){
+            return;
+        }
+        swap(v, left, Math.floor((left + right)/2));
+        last = left;
+        for(i=left+1; i<=right; i++){
+            if(v[i]<v[left]){
+                swap(v, ++last, i);
+            }
+        }
+        swap(v, left, last);
+        qsort(v, left, last-1);
+        qsort(v, last+1, right);
+    }
+
+    function swap(v, i, j){
+        var temp = v[i];
+        v[i] = v[j];
+        v[j] = temp;
+    }
+    var array = [61,6,4,9,11,12,50,31,4,8,7,10];
+    document.getElementById('src').innerText = '源序列：' + array.toString();
+    qsort(array, 0, array.length-1);
+    document.getElementById('target').innerText = '目标序列：' + array.toString();
+</script>
+</body>
+</html>
