@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>html5 input event</title>
+</head>
+<body>
+<input id="input" type="text" value=""/>
+<script>
+    var input = document.getElementById('input');
+    input.addEventListener('input', onlyNumber);
+    input.addEventListener('blur', function(){
+        var value = onlyTwo(this.value);
+        if(value==='NaN'){
+            this.value = '';
+        }else{
+            this.value = value;
+        }
+    });
+    function onlyNumber() {
+        if(!/^(\d*\.)?\d*$/.test(this.value)){
+            this.value = this.value.replace(/[^\d.]/g, '');
+        }
+    }
+    function onlyTwo(value){
+        return parseFloat(value).toFixed(2);
+    }
+</script>
+</body>
+</html>
