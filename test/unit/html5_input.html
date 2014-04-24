@@ -4,25 +4,32 @@
     <title>html5 input event</title>
 </head>
 <body>
-<input id="input" type="text" value=""/>
+<p><input id="input1" type="text" value="" placeholder="input1"/></p>
+<p><input id="input2" type="text" value="" placeholder="input2"/></p>
+<p><input id="input3" type="text" value="" placeholder="input3"/></p>
 <script>
-    var input = document.getElementById('input');
-    input.addEventListener('input', onlyNumber);
-    input.addEventListener('blur', function(){
-        var value = onlyTwo(this.value);
-        if(value==='NaN'){
-            this.value = '';
-        }else{
-            this.value = value;
-        }
+    var input1 = document.getElementById('input1');
+    var input2 = document.getElementById('input2');
+    var input3 = document.getElementById('input3');
+    input1.addEventListener('input', onlyNumber);
+    input2.addEventListener('input', onlyNumber);
+    input1.addEventListener('blur', function(){
+        this.value = onlyTwo(this.value);
+    });
+    input2.addEventListener('blur', function(){
+        this.value = onlyTwo(this.value);
     });
     function onlyNumber() {
         if(!/^(\d*\.)?\d*$/.test(this.value)){
             this.value = this.value.replace(/[^\d.]/g, '');
         }
+//        input3.value = input1.value + input2.value;
+        var value3 = parseFloat(input1.value||0) + parseFloat(input2.value||0);
+        input3.value = value3.toFixed(2);
+//        input3.value = parseFloat(input1.value|0 + input2.value|0).toFixed(2);
     }
     function onlyTwo(value){
-        return parseFloat(value).toFixed(2);
+        return parseFloat(value||0).toFixed(2);
     }
 </script>
 </body>
