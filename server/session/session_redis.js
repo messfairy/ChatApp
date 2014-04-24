@@ -7,7 +7,7 @@ var session_store = require('redis').createClient();
 var EXPIRE_TIME = 3 /* hour */ * 60 /* minutes*/ * 60 /* seconds */;
  
 function createSID ( prefix ) {
-    pre = (pre) ? pre : 'NS';
+    var pre = (prefix) ? prefix : 'NS';
     var time = (new Date()).getTime() + '';
     var id = pre + '_' + (time).substring(time.length - 6) + '_' + (Math.round(Math.random() * 1000));
     return id;
