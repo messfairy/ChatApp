@@ -228,3 +228,24 @@ scloud树同步
 post请求去掉datatype
 
 
+Bean容器的设计：
+
+一、Bean类模型：
+1. 通过父类Base间接引用EventPipe(单例)，具有消息发布的接口供子类调用，有消息注册接口供其它Bean调用；
+2. Bean有消息统一注册接口，view Bean有dom渲染接口和dom ready事件注册接口，供容器统一调用.
+（附：Bean调用EventPipe接口：消息注册和发布时，通过类名和id发布分别调用EventPipe）
+
+二、BeanFactory主流程：
+1. 解析配置，加载类模块：根据配置解析的类名列表加载所有Bean类模块；
+2. 加载完成后，新建bean对象：根据配置和类模块生成bean树，并为每个bean建立类名索引和ID索引；
+3. 所有bean实例化完毕，为每个bean注册消息：容器依次调用每个bean的消息注册接口；
+4. 最后，渲染所有view bean，分别调用view bean的dom ready事件注册接口：容器找出所有view bean，根据配置的层次关系由外向内渲染每个view bean
+（附：主要api：bean注入接口）
+
+三、Bean重要依赖EventPipe：
+构建于RangeTree类对象上，该对象核心数据结构是一棵层级树，支持点对点消息注册和发布，支持消息向上冒泡和向下广播，支持消息代理注册
+
+
+
+
+
